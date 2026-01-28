@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tree:*)",
+      "Bash(chmod +x:*)",
+      "Bash(./gradlew clean build test --no-daemon)",
+      "Bash(./gradlew test:*)",
+      "Bash(xargs:*)",
+      "Bash(./gradlew clean build test --no-daemon -q)",
+      "Bash(./gradlew build test --no-daemon -q:*)",
+      "Bash(./gradlew build test --no-daemon:*)"
+    ]
+  }
+}
