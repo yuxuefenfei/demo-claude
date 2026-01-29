@@ -8,7 +8,13 @@
       "Bash(xargs:*)",
       "Bash(./gradlew clean build test --no-daemon -q)",
       "Bash(./gradlew build test --no-daemon -q:*)",
-      "Bash(./gradlew build test --no-daemon:*)"
+      "Bash(./gradlew build test --no-daemon:*)",
+      "Bash(gradle bootRun:*)",
+      "Bash(curl:*)",
+      "Bash(file://$PWD/src/main/resources/static/heart.html)",
+      "Bash(start file://$PWD/src/main/resources/static/heart.html)",
+      "Bash(xdg-open:*)",
+      "Bash(cmd /c:*)"
     ]
   }
 }

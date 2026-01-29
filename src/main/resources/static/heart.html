@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>爱心动画</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+        }
+
+        .name {
+            color: white;
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 50px;
+            opacity: 0;
+            animation: fadeInName 2s ease-in-out forwards;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .heart-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+        }
+
+        .curve {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ff6b6b, #ffd93d);
+            border-radius: 1px;
+            opacity: 0;
+        }
+
+        .curve.left {
+            animation: extendLeft 3s ease-in-out 2s forwards;
+            transform-origin: right center;
+        }
+
+        .curve.right {
+            animation: extendRight 3s ease-in-out 2s forwards;
+            transform-origin: left center;
+        }
+
+        .heart {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 100px;
+            height: 90px;
+            opacity: 0;
+            animation: formHeart 2s ease-in-out 5s forwards;
+        }
+
+        .heart:before,
+        .heart:after {
+            position: absolute;
+            content: "";
+            left: 50px;
+            top: 0;
+            width: 50px;
+            height: 80px;
+            background: #ff6b6b;
+            border-radius: 50px 50px 0 0;
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+            box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+        }
+
+        .heart:after {
+            left: 0;
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+
+        @keyframes fadeInName {
+            0% {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes extendLeft {
+            0% {
+                width: 0;
+                opacity: 0;
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                width: 60px;
+                transform: translate(-50%, -50%) rotate(-25deg);
+            }
+            100% {
+                width: 80px;
+                opacity: 1;
+                transform: translate(calc(-50% - 40px), -50%) rotate(-45deg);
+            }
+        }
+
+        @keyframes extendRight {
+            0% {
+                width: 0;
+                opacity: 0;
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                width: 60px;
+                transform: translate(-50%, -50%) rotate(25deg);
+            }
+            100% {
+                width: 80px;
+                opacity: 1;
+                transform: translate(calc(-50% + 40px), -50%) rotate(45deg);
+            }
+        }
+
+        @keyframes formHeart {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+        }
+
+        .glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 107, 107, 0.3) 0%, transparent 70%);
+            opacity: 0;
+            animation: glowEffect 3s ease-in-out 6s forwards;
+        }
+
+        @keyframes glowEffect {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="name" id="nameDisplay">张三</div>
+
+        <div class="heart-container">
+            <div class="glow"></div>
+            <div class="curve left"></div>
+            <div class="curve right"></div>
+            <div class="heart" id="heartShape"></div>
+        </div>
+    </div>
+
+    <script>
+        // 可以动态设置姓名
+        function setName(name) {
+            document.getElementById('nameDisplay').textContent = name;
+        }
+
+        // 页面加载完成后添加脉冲效果
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                const heart = document.getElementById('heartShape');
+                heart.classList.add('pulse');
+            }, 7000); // 在爱心形成后开始脉冲
+        });
+
+        // 可以通过URL参数设置姓名
+        const urlParams = new URLSearchParams(window.location.search);
+        const nameParam = urlParams.get('name');
+        if (nameParam) {
+            setName(nameParam);
+        }
+
+        // 点击爱心可以重新开始动画
+        document.getElementById('heartShape').addEventListener('click', function() {
+            // 重新触发动画
+            this.style.animation = 'none';
+            this.offsetHeight; // 触发重排
+            this.style.animation = null;
+            this.classList.remove('pulse');
+
+            setTimeout(() => {
+                this.classList.add('pulse');
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
