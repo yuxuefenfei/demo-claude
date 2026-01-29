@@ -14,7 +14,9 @@
       "Bash(file://$PWD/src/main/resources/static/heart.html)",
       "Bash(start file://$PWD/src/main/resources/static/heart.html)",
       "Bash(xdg-open:*)",
-      "Bash(cmd /c:*)"
+      "Bash(cmd /c:*)",
+      "Bash(./gradlew:*)",
+      "Bash(lsof:*)"
     ]
   }
 }
