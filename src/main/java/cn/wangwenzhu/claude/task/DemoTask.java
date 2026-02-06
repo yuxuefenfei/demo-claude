@@ -13,11 +13,11 @@ public class DemoTask {
 
     private final Random random = new Random();
 
-    @Async("taskExecutor")
+    @Async("commonTaskExecutor")
     public void executeRandomTask(String taskName) {
         try {
             // 生成1-10秒的随机执行时间
-            int executionTime = random.nextInt(10) + 1;
+            var executionTime = random.nextInt(10) + 1;
 
             log.info("开始执行任务: {} (预计执行时间: {}秒)", taskName, executionTime);
 
@@ -34,11 +34,11 @@ public class DemoTask {
         }
     }
 
-    @Async("taskExecutor")
+    @Async("commonTaskExecutor")
     public void executeLongRunningTask(String taskName) {
         try {
             // 生成长任务，10-30秒
-            int executionTime = random.nextInt(21) + 10;
+            var executionTime = random.nextInt(21) + 10;
 
             log.info("开始执行长任务: {} (预计执行时间: {}秒)", taskName, executionTime);
 
@@ -54,11 +54,11 @@ public class DemoTask {
         }
     }
 
-    @Async("taskExecutor")
+    @Async("commonTaskExecutor")
     public void executeQuickTask(String taskName) {
         try {
             // 快速任务，0.5-2秒
-            int executionTime = random.nextInt(1500) + 500; // 毫秒
+            var executionTime = random.nextInt(1500) + 500; // 毫秒
 
             log.info("开始执行快速任务: {} (预计执行时间: {}毫秒)", taskName, executionTime);
 

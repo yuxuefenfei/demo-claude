@@ -10,8 +10,8 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class ThreadPoolConfig {
 
     @Bean
-    public ThreadPoolTaskExecutor taskExecutor() {
-        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+    public ThreadPoolTaskExecutor commonTaskExecutor() {
+        var executor = new ThreadPoolTaskExecutor();
 
         // 核心线程数
         executor.setCorePoolSize(5);

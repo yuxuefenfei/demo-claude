@@ -1,27 +1,20 @@
 package cn.wangwenzhu.claude.controller;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.time.Instant;
 
 @RestController
 public class HealthController {
 
     @GetMapping("/health")
     public ResponseEntity<HealthResponse> health() {
-        HealthResponse response = new HealthResponse();
-        response.setStatus("UP");
-        response.setTimestamp(java.time.Instant.now().toString());
+        var response = new HealthResponse("UP", Instant.now());
         return ResponseEntity.ok(response);
     }
 
-    @Setter
-    @Getter
-    public static class HealthResponse {
-        private String status;
-        private String timestamp;
-
+    public record HealthResponse(String status, Instant timestamp) {
     }
 }

@@ -16,7 +16,15 @@
       "Bash(xdg-open:*)",
       "Bash(cmd /c:*)",
       "Bash(./gradlew:*)",
-      "Bash(lsof:*)"
+      "Bash(lsof:*)",
+      "Bash(unzip:*)",
+      "Bash(taskkill:*)",
+      "Bash(chcp:*)",
+      "Bash(gradle clean build:*)",
+      "Bash(java:*)",
+      "Bash(javac:*)",
+      "Bash(dir:*)",
+      "Bash(ls:*)"
     ]
   }
 }

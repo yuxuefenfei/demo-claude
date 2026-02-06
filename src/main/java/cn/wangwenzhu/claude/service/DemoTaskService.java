@@ -1,6 +1,7 @@
 package cn.wangwenzhu.claude.service;
 
 import cn.wangwenzhu.claude.task.DemoTask;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -10,20 +11,17 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class DemoTaskService {
 
     private final DemoTask demoTask;
     private final Random random = new Random();
     private final AtomicInteger taskCounter = new AtomicInteger(0);
 
-    public DemoTaskService(DemoTask demoTask) {
-        this.demoTask = demoTask;
-    }
-
     @Scheduled(fixedRate = 2000) // 每2秒提交一个新任务
     public void submitRandomTasks() {
-        int taskNumber = taskCounter.incrementAndGet();
-        int taskType = random.nextInt(3);
+        var taskNumber = taskCounter.incrementAndGet();
+        var taskType = random.nextInt(3);
 
         switch (taskType) {
             case 0:
@@ -45,16 +43,16 @@ public class DemoTaskService {
         log.info("开始提交批量任务...");
 
         // 提交5-10个快速任务
-        int quickTasks = random.nextInt(6) + 5;
-        for (int i = 0; i < quickTasks; i++) {
-            int taskNumber = taskCounter.incrementAndGet();
+        var quickTasks = random.nextInt(6) + 5;
+        for (var i = 0; i < quickTasks; i++) {
+            var taskNumber = taskCounter.incrementAndGet();
             demoTask.executeQuickTask("Batch-Quick-Task-" + taskNumber);
         }
 
         // 提交2-5个随机任务
-        int randomTasks = random.nextInt(4) + 2;
-        for (int i = 0; i < randomTasks; i++) {
-            int taskNumber = taskCounter.incrementAndGet();
+        var randomTasks = random.nextInt(4) + 2;
+        for (var i = 0; i < randomTasks; i++) {
+            var taskNumber = taskCounter.incrementAndGet();
             demoTask.executeRandomTask("Batch-Random-Task-" + taskNumber);
         }
 
@@ -62,11 +60,11 @@ public class DemoTaskService {
     }
 
     private String getTaskTypeName(int taskType) {
-        switch (taskType) {
-            case 0: return "快速任务";
-            case 1: return "随机任务";
-            case 2: return "长任务";
-            default: return "未知";
-        }
+        return switch (taskType) {
+            case 0 -> "快速任务";
+            case 1 -> "随机任务";
+            case 2 -> "长任务";
+            default -> "未知";
+        };
     }
 }
